@@ -103,10 +103,12 @@ public class IncomingCallService extends Service {
     emptyScreenIntent.setAction(Constants.onPressNotification);
     String channelId=bundle.getString("channelId");
     PendingIntent emptyPendingIntent = PendingIntent.getActivity(context, 0, emptyScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+    Uri sound;
     String customSound=bundle.getString("notificationSound");
-    Uri sound=RingtoneManager.getActualDefaultRingtoneUri(getApplicationContext(), RingtoneManager.TYPE_RINGTONE);
     if(customSound != null){
-           sound= Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + File.pathSeparator + File.separator + File.separator + getPackageName() + "/raw/" + customSound);
+      sound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + File.pathSeparator + File.separator + File.separator + getPackageName() + "/raw/" + customSound);
+    } else {
+      sound = RingtoneManager.getActualDefaultRingtoneUri(getApplicationContext(), RingtoneManager.TYPE_RINGTONE);
     }
     NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -267,6 +269,3 @@ public class IncomingCallService extends Service {
 
 
 }
-
-
-
