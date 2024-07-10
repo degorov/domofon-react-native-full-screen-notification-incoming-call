@@ -261,10 +261,12 @@ public class IncomingCallService extends Service {
 
   private Uri getCustomSoundUri(Context context, Bundle bundle) {
     String customSound = bundle.getString("notificationSound");
-    Uri soundUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
+    Uri soundUri;
 
     if (customSound != null) {
       soundUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + File.pathSeparator + File.separator + File.separator + context.getPackageName() + "/raw/" + customSound);
+    } else {
+      soundUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
     }
 
     return soundUri;
@@ -400,6 +402,3 @@ public class IncomingCallService extends Service {
 
 
 }
-
-
-
